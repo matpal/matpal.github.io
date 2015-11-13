@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #e9e9e9; }
+  body h1 {
+    margin: 0;
+    text-align: center; }
+  body nav {
+    width: 300px;
+    background-color: white;
+    float: left;
+    max-height: 100%;
+    font-family: 'Wire One', sans-serif;
+    font-size: 32px;
+    font-size: 2rem;
+    line-height: 42px; }
+    body nav ul {
+      margin: 0;
+      list-style-type: none;
+      text-align: right; }
+      body nav ul li {
+        margin-right: 30px; }
+  body footer {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%; }
+    body footer h1 {
+      font-family: 'Wire One', sans-serif;
+      font-size: 3em;
+      margin: 0 30px; }
+    body footer ul {
+      padding: 0; }
+      body footer ul li {
+        display: inline;
+        margin: 0 30px; }
+        body footer ul li a {
+          color: black; }
+
+/*# sourceMappingURL=custom.css.map */

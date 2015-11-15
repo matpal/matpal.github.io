@@ -1,0 +1,48 @@
+@mixin transition($args...){
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin transform($args){
+  -webkit-transform: $args;
+  -moz-transform: $args;
+  -ms-transform: $args;
+  -o-transform: $args;
+  transform: $args;
+}
+
+@mixin perspective($perspective){
+  -webkit-perspective: $perspective;
+  -moz-perspective: $perspective;
+  perspective: $perspective;
+}
+
+@mixin transform-style($style){
+  -webkit-transform-style: $style;
+  -moz-transform-style: $style;
+  transform-style: $style;
+}
+
+@mixin backface-visibility($visibility){
+  -webkit-backface-visibility: $visibility;
+  backface-visibility: $visibility;
+}
+
+@mixin opacity($opacity){
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie);  //Internet Explorer 8
+}
+
+@function calculateRem($size){
+  $remSize : $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size){
+  font-size: $size;
+  font-size: calculateRem($size);
+}

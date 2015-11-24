@@ -13,7 +13,8 @@ body {
     font-family: 'Wire One', sans-serif;
     font-size: 32px;
     font-size: 2rem;
-    line-height: 42px; }
+    line-height: 42px;
+    border-right: 5px solid #862c2c; }
     body nav ul {
       margin: 0;
       list-style-type: none;

@@ -1,0 +1,22 @@
+@import "materialize";
+
+#sidebar{
+  border-left: 2px solid color('blue','darken-4');
+}
+
+.collapsible-body{
+  padding:10px;
+}
+.button-collapse{
+    padding: 0 5px;
+    margin: 0 10px;
+}
+.side-nav .collapsible-body li a{
+    margin: 0;
+}
+
+.myholder{
+    border:1px solid black;
+    // background: #ffffff url("../grid.png") repeat;
+    background-color: #efefef;
+}

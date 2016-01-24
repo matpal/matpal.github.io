@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title></title>
+
+  <link rel="stylesheet" type="text/css" href="css/joint.css" />
+  <link rel="stylesheet" type="text/css" href="css/materialize.css" />
+  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="css/custom.css" />
+</head>
+<body data-query="view(NewProject)">
+    
+    <!--toolbar-->
+    
+    
+    
+    
+    <!--2 columns, activities and diagrams-->
+    <div class="row">
+        <div class="col m2 s12">
+            <h5 class="center-align">Activities</h5>
+            <p class="center-align" data-query="visible(activitiesEmpty)">No activities found.</p>
+            
+    
+            <ul id="dropActivityMenu" class="center-align" style="display:block" data-query="each(activities)">
+                <li class="col s12" data-query="click(setAttiva)"><a data-query="attr('href','#'+$this.nome)">{{$this.nome}}</a></li>
+            </ul>    
+            
+            <div class="row">
+                <div class="col s12">
+                    <a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#newActivityModal">New Activity</a>
+                    <div id="newActivityModal" class="modal">
+                        <div class="modal-content center-align">
+                            <h5>Name your new <strong>Activity</strong></h5>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                <input value="" id="inputActivityName" type="text" class="validate">
+                                </div>
+                            </div>           
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click(newActivity)">Add</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="col m10 s12">
+            
+            <div data-query="each(activities)">
+                <h4 class="center-align" data-query="visible($this.isAttiva)">{{$this.nome}}</h4>
+                <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva)">
+                </div>
+                
+                
+                <div data-query="visible($this.isAttiva)">
+                    <p>Activity Name: {{$this.nome}}</p>
+                    
+                    <!--                    
+                        ANDROID COMPONENT
+                    -->
+                    <a 
+                        class="waves-effect waves-light btn modal-trigger blue lighten-2" 
+                        
+                        data-query="attr('href', '#' +$this.nome+ 'NewAndroidComponentModal' ).click($parent.openAndroidComponentModal)"
+                    >
+                        <i class="fa fa-android left"></i> Add Android Component
+                    </a>
+                    
+                    <div data-query="attr('id', $this.nome + 'NewAndroidComponentModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <h5>Choose which <strong>component</strong> to add</h5>
+                                    <div class="input-field" >
+                                        <select data-query="attr('id', $this.nome+'ComponentType').each(AndroidComponents)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Select</label>
+                                    </div>        
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Component Name" 
+                                        data-query="attr('id', $this.nome + 'ComponentName')">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        
+                                        <select data-query="attr('id', $this.nome+'ComponentRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <!--<select data-query="each($parent.currentActivity.recs)">-->
+                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each($parent.recsID)">
+                                            <!--<option value="" disabled selected>Choose Parent</option>
+                                            <option>{{$this.nome}}</option>-->
+                                            <option data-query="val($this.name).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Attach to:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.addAndroidComponentTo)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--                    
+                        CUSTOM CLASS
+                    -->
+                    <a 
+                        class="waves-effect waves-light btn modal-trigger blue lighten-2"
+                        data-query="attr('href', '#' +$this.nome+ 'NewCustomClassModal' ).click($parent.openCustomClassModal)"
+                    >
+                        <i class="fa fa-square-o left"></i> Add Custom Class
+                    </a>
+                    
+                     <div data-query="attr('id', $this.nome + 'NewCustomClassModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <h5>New <strong>Custom Class</strong></h5>
+                                    <div class="input-field" >
+                                        <select data-query="attr('id', $this.nome+'CustomClassType').each(ClassTypes)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Select class type</label>
+                                    </div>        
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Class Name"
+                                        data-query="attr('id', $this.nome + 'CustomClassName')">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        
+                                        <select data-query="attr('id', $this.nome+'CustomClassRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <!--<select data-query="each($parent.currentActivity.recs)">-->
+                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each($parent.recsID)">
+                                            <!--<option value="" disabled selected>Choose Parent</option>
+                                            <option>{{$this.nome}}</option>-->
+                                            <option data-query="val($this.name).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Attach to:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!--<div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <label for="">Properties</label>
+                                        <input type="text" data-query="val(newMemberField.name).keydown(keydown)" placeholder="Add new property name and press enter">
+                                    </div>
+                                    
+                                    <div data-query="each(memberFields)">
+                                        <span data-query="visible(!editing())" class="value-holder">
+                                            {{name}}
+                                        </span>
+                                        <span data-query="visibile(editing)" class="value-holder">
+                                            <input data-query="val(name)">
+                                        </span>
+                                        <span class="button-holder right">
+                                            <span data-query="click(toggleEdit).setClass('fa-check',editing).setClass('fa-pencil',!editing())" class="fa fa-lg fa-check blue-text text-lighten-1"></span>
+                                            <span class="red-text" data-query="click(remove)"><i class="fa fa-lg fa-trash"></i></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>-->
+                            
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text" data-query="click($parent.addCustomClassTo)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div> <!-- summary section -->
+            
+            
+             
+        </div>
+    </div>
+    
+   
+    
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/lodash.min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    <script src="js/libs/joint.js"></script>
+    <script src="js/libs/blocks.js"></script>
+    <script src="js/libs/materialize.js"></script>
+    <script src="js/customDiagrams.js"></script>
+    <script src="js/newProject.js"></script>
+    
+</body>
+</html>

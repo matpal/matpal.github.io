@@ -1,0 +1,9 @@
+creare elenco service, content providers, broadcast receivers,ecc sotto l'elenco delle
+activity a partire dal manifest, se dopo l'upload della classe java non trovo il collegamento 
+( la classe che chiama un determinato servizio) allora chiedi esplicitamente a quale activity 
+collegare il servizio,provider,ecc
+
+cercare libreria jquery per personalizzare menu (click destro-> crea link, crea custom class
+o android component)
+
+scrivere bozza manuale utente su come utilizzare il sistema

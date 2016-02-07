@@ -187,7 +187,7 @@ public class MainActivity extends ActionBarActivity implements PlaystateChangedL
 
         // Start the music playing service this allows the service
         //  to continue after the application has lost focus.
-        startService(new Intent(this, MusicService.class));
+        startService(new Intent(this, SessionCleanerService.class));
     }
 
     @Override

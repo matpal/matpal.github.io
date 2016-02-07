@@ -10,57 +10,81 @@
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="css/custom.css" />
 
-
-    <script src="js/libs/jquery.min.js"></script>
-    <script src="js/libs/lodash.min.js"></script>
-    <script src="js/libs/backbone-min.js"></script>
-    <script src="js/libs/joint.js"></script>
-    <script src="js/libs/blocks.js"></script>
-    <script src="js/libs/materialize.js"></script>
-    <!--<script src="js/mycode.js"></script>
-    <script src="js/app.js"></script>-->
-    <script src="js/customDiagrams.js"></script>
-    <script src="js/existingProject.js"></script>
-    <!-- Check for file API support -->
-    <script type="text/javascript">
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        console.log("File API supported.!");
-    } else {
-        console.log("The File APIs are not fully supported in this browser.");
-    }
-    </script>
-
-
-
 </head>
-<body data-query="view(Source)">
+<body data-query="view(ExistingProject)">
+    <div class="row">
+        <div class="col s12">
+            <a class="waves-effect waves-light btn modal-trigger blue lighten-2 pull-right" href="#androidManifestModal" 
+data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidManifest.xml</a>                   <div id="androidManifestModal" class="modal">
+                <div class="modal-content center-align">
+                    <h5>Upload your <strong>AndroidManifest.xml</strong></h5>
+                    <input id="AndroidManifestUploadButton" type="file" data-query="change(uploadAndroidManifest)" />
+                    {{messages.error}}
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#androidManifestModal" 
-data-query="visible(manifest.uploaded)">Choose another AndroidManifest.xml</a>
-<div id="androidManifestModal" class="modal">
-    <div class="modal-content center-align">
-        <h5>Upload your <strong>AndroidManifest.xml</strong></h5>
-        <input id="AndroidManifestUploadButton" type="file" data-query="change(uploadAndroidManifest)" />
-        {{messages.error}}
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
-    </div>
-</div>
+
 
 <div class="row">
-    <div class="col m2 s12">
-        <h4 class="center-align" data-query="visible(!activitiesEmpty())">Activities</h4>
+    <div class="col m3 s12">
+        <!--ACTIVITIES-->
+        <h5 class="center-align" data-query="visible(!activitiesEmpty())">Activities</h5>
         <ul id="dropActivityMenu" class="center-align" style="display:block" data-query="each(activities)">
             <li class="col s12" data-query="click(setAttiva)"><a data-query="attr('href','#'+$this.nome)">{{$this.nome}}</a></li>
         </ul>
+        
+        <!--SERVICES-->
+        <h5 class="center-align" data-query="visible(!servicesEmpty())">Services</h5>
+        <ul id="dropServiceMenu" class="center-align" style="display:block" data-query="each(services)">
+            <li class="col s12" data-query="visible(!$this.linked())">
+                <a class="modal-trigger red-text" href="#"
+                    data-query="click($parent.openAttachComponentModal)"
+                >{{$this.nome}}</a> <i class="fa fa-unlink red-text"></i>
+            </li>
+            <li class="col s12 green-text lighten-1" data-query="visible($this.linked)">
+                {{$this.nome}} <i class="fa fa-link"></i>
+            </li>
+        </ul>
+        
+        <!--CONTENT PROVIDERS-->
+        <h5 class="center-align" data-query="visible(!providersEmpty())">Content Providers</h5>
+        <ul id="dropProviderMenu" class="center-align" style="display:block" data-query="each(providers)">
+            <li class="col s12 " data-query="visible(!$this.linked())">
+                <a class="modal-trigger red-text" href="#"
+                    data-query="click($parent.openAttachComponentModal)"
+                >{{$this.nome}}</a> <i class="fa fa-unlink red-text"></i>
+            </li>
+            <li class="col s12 green-text lighten-1" data-query="visible($this.linked)">
+                {{$this.nome}} <i class="fa fa-link"></i>
+            </li>
+        </ul>
+        
+        <!--BROADCAST RECEIVERS-->
+        <h5 class="center-align" data-query="visible(!receiversEmpty())">Broadcast Receivers</h5>
+        <ul id="dropReceiversMenu" class="center-align" data-query="each(receivers)">
+            <li class="col s12" data-query="visible(!$this.linked())">
+                <a class="modal-trigger red-text" href="#"
+                    data-query="click($parent.openAttachComponentModal)"
+                >{{$this.nome}}</a> <i class="fa fa-unlink red-text"></i>
+            </li>
+            <li class="col s12 green-text lighten-1" data-query="visible($this.linked)">
+                {{$this.nome}} <i class="fa fa-link"></i>
+            </li>
+        </ul>
+        
     </div>
     
-    <div class="col m10 s12">
+    <div class="col m9 s12">
         <!-- Crea dinamicamente i divs contenenti i diagrammi -->
         <div data-query="each(activities)">
-
-            <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva)">
+            
+            <h4 class="center-align title" data-query="visible($this.isAttiva)">{{$this.nome}}</h4>
+            <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva).click($this.showMenu)">
             </div>
             
 
@@ -109,11 +133,358 @@ data-query="visible(manifest.uploaded)">Choose another AndroidManifest.xml</a>
                     </div>
                 </div>
                 <div class="col s6"></div>
+                
+                <!--MODAL ADD ANDROID COMPONENT-->
+                <div data-query="attr('id', $this.nome + 'NewAndroidComponentModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            <div class="row">
+                                <div class="col s12">
+                                    <h5>Choose which <strong>component</strong> to add</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field" >
+                                        <select data-query="attr('id', $this.nome+'ComponentType').each(AndroidComponents)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Select</label>
+                                    </div>        
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Component Name" 
+                                        data-query="attr('id', $this.nome + 'ComponentName')">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'ComponentRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each(recs)">
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>Attach to:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.addAndroidComponentTo)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--MODAL ADD CUSTOM CLASS-->
+                    <div data-query="attr('id', $this.nome + 'NewCustomClassModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <h5>New <strong>Custom Class</strong></h5>
+                                    <div class="input-field" >
+                                        <select data-query="attr('id', $this.nome+'CustomClassType').each(ClassTypes)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Select class type</label>
+                                    </div>        
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <label>Name</label>
+                                        <input type="text" placeholder="Class Name"
+                                        data-query="attr('id', $this.nome + 'CustomClassName')">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        
+                                        <select data-query="attr('id', $this.nome+'CustomClassRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each(recs)">
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>Attach to:</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text" data-query="click($parent.addCustomClassTo)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- MODAL ADD CUSTOM LINK-->
+                    <div data-query="attr('id', $this.nome + 'NewCustomLinkModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            
+                                    
+                            <div class="row">
+                                <div class="col s10">
+                                    <h5>New <strong>Relation</strong></h5>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'LinkComponentRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'LinkComponentChildName').each(recs)">
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>From:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'LinkComponentParentName').each(recs)">
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>To:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.addCustomLink)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
             </div>
+            
+            
 
         </div>
+        
+        <!--ATTACH UNLINKED SERVICE-->
+        <div data-query="each(services)">
+            <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                <div class="modal-content center-align">
+                    
+                            
+                    <div class="row">
+                        <div class="col s10">
+                            <img alt="" data-query="attr('src',AndroidComponents.service.icon)">
+                            <h5>Attach <strong>{{$this.nome}}</strong></h5>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedServiceParentName').each($parent.activities())">
+                                    <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
+                                    <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
+                                </select>
+                                <label>To:</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedServiceRelationType').each(UmlLinks)">
+                                    <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                </select>
+                                <label>Relation type</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.attachService).attr('parentName',$this.nome)">Add</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <!--ATTACH UNLINKED CONTENT PROVIDERS-->
+        <div data-query="each(providers)">
+            <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                <div class="modal-content center-align">
+                                                
+                    <div class="row">
+                        <div class="col s10">
+                            <img alt="" data-query="attr('src',AndroidComponents.contentProvider.icon)">
+                            <h5>Attach <strong>{{$this.nome}}</strong></h5>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedProviderParentName').each($parent.activities())">
+                                    <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
+                                    <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
+                                </select>
+                                <label>To:</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedProviderRelationType').each(UmlLinks)">
+                                    <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                </select>
+                                <label>Relation type</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.attachProvider).attr('parentName',$this.nome)">Add</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <!--ATTACH UNLINKED BROADCAST RECEIVERS-->
+        <div data-query="each(receivers)">
+            <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                <div class="modal-content center-align">
+                                                
+                    <div class="row">
+                        <div class="col s10">
+                            <img alt="" data-query="attr('src',AndroidComponents.broadcastReceiver.icon)">
+                            <h5>Attach <strong>{{$this.nome}}</strong></h5>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedReceiverParentName').each($parent.activities())">
+                                    <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
+                                    <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
+                                </select>
+                                <label>To:</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col s10">
+                            <div class="input-field">
+                                <select data-query="attr('id', $this.nome+'UnattachedReceiverRelationType').each(UmlLinks)">
+                                    <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                </select>
+                                <label>Relation type</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.attachReceiver).attr('parentName',$this.nome)">Add</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
     </div>
 </div>
 
+    <!-- Check for file API support -->
+    <script type="text/javascript">
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        console.log("File API supported.!");
+    } else {
+        console.log("The File APIs are not fully supported in this browser.");
+    }
+    </script>
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/lodash.min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    <script src="js/libs/joint.js"></script>
+    <script src="js/libs/blocks.js"></script>
+    <script src="js/libs/materialize.js"></script>
+    <script src="js/libs/jquery.contextmenu.js"></script>
+    <script src="js/customDiagrams.js"></script>
+    <script src="js/existingProject.js"></script>
+    
 </body>
 </html>

@@ -8582,8 +8582,29 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 .side-nav .collapsible-body li a {
   margin: 0; }
 
+h4.title {
+  background-color: #90CAF9;
+  padding: 10px 0;
+  margin: 0; }
+
 .myholder {
-  border: 1px solid black;
-  background-color: #efefef; }
+  border: 1px solid #90CAF9;
+  background-color: #fff; }
+
+.modal-footer a.modal-action {
+  margin: 0 5px !important; }
+
+#contextmenu {
+  margin: 0;
+  padding: 0;
+  border: 1px solid #000;
+  background: #ccc; }
+  #contextmenu li {
+    list-style-type: none;
+    margin: 1px;
+    padding: 2px;
+    cursor: pointer; }
+    #contextmenu li.hover {
+      background: #ddd; }
 
 /*# sourceMappingURL=custom.css.map */

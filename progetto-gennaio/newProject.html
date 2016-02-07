@@ -18,7 +18,7 @@
     
     <!--2 columns, activities and diagrams-->
     <div class="row">
-        <div class="col m2 s12">
+        <div class="col m3 s12">
             <h5 class="center-align">Activities</h5>
             <p class="center-align" data-query="visible(activitiesEmpty)">No activities found.</p>
             
@@ -28,11 +28,11 @@
             </ul>    
             
             <div class="row">
-                <div class="col s12">
+                <div class="col s12 center-align">
                     <a class="waves-effect waves-light btn modal-trigger blue lighten-2" href="#newActivityModal">New Activity</a>
                     <div id="newActivityModal" class="modal">
                         <div class="modal-content center-align">
-                            <h5>Name your new <strong>Activity</strong></h5>
+                            <h5>Enter <strong>Activity</strong> name:</h5>
                             <div class="row">
                                 <div class="input-field col s12">
                                 <input value="" id="inputActivityName" type="text" class="validate">
@@ -49,11 +49,11 @@
             
         </div>
         
-        <div class="col m10 s12">
+        <div class="col m9 s12">
             
             <div data-query="each(activities)">
                 <h4 class="center-align" data-query="visible($this.isAttiva)">{{$this.nome}}</h4>
-                <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva)">
+                <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva).click($this.showMenu)">
                 </div>
                 
                 
@@ -75,8 +75,12 @@
                         <div class="modal-content center-align">
                             
                             <div class="row">
-                                <div class="col s10">
+                                <div class="col s12">
                                     <h5>Choose which <strong>component</strong> to add</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s10">
                                     <div class="input-field" >
                                         <select data-query="attr('id', $this.nome+'ComponentType').each(AndroidComponents)">
                                             <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
@@ -113,10 +117,10 @@
                                 <div class="col s10">
                                     <div class="input-field">
                                         <!--<select data-query="each($parent.currentActivity.recs)">-->
-                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each($parent.recsID)">
+                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each(recs)">
                                             <!--<option value="" disabled selected>Choose Parent</option>
                                             <option>{{$this.nome}}</option>-->
-                                            <option data-query="val($this.name).attr('id',$this.id)">{{$this.name}}</option>
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
                                         </select>
                                         <label>Attach to:</label>
                                     </div>
@@ -185,10 +189,10 @@
                                 <div class="col s10">
                                     <div class="input-field">
                                         <!--<select data-query="each($parent.currentActivity.recs)">-->
-                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each($parent.recsID)">
+                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each(recs)">
                                             <!--<option value="" disabled selected>Choose Parent</option>
                                             <option>{{$this.nome}}</option>-->
-                                            <option data-query="val($this.name).attr('id',$this.id)">{{$this.name}}</option>
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
                                         </select>
                                         <label>Attach to:</label>
                                     </div>
@@ -229,6 +233,80 @@
                         </div>
                     </div>
                     
+                    <!--                    
+                        CUSTOM LINK
+                    -->
+                    <a 
+                        class="waves-effect waves-light btn modal-trigger blue lighten-2" 
+                        
+                        data-query="attr('href', '#' +$this.nome+ 'NewCustomLinkModal' ).
+                        visible(!($this.recs().length < 2)).
+                        click($parent.openCustomLinkModal)"
+                    >
+                        <i class="fa fa-arrow-up left"></i> Add Relation
+                    </a>
+                    
+                    
+                    <div data-query="attr('id', $this.nome + 'NewCustomLinkModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                        <div class="modal-content center-align">
+                            
+                                    
+                            <div class="row">
+                                <div class="col s10">
+                                    <h5>New <strong>Relation</strong></h5>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <select data-query="attr('id', $this.nome+'LinkComponentRelationType').each(UmlLinks)">
+                                            <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                        </select>
+                                        <label>Relation type</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <!--<select data-query="each($parent.currentActivity.recs)">-->
+                                        <select data-query="attr('id', $this.nome+'LinkComponentChildName').each(recs)">
+                                            <!--<option value="" disabled selected>Choose Parent</option>
+                                            <option>{{$this.nome}}</option>-->
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>From:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s10">
+                                    <div class="input-field">
+                                        <!--<select data-query="each($parent.currentActivity.recs)">-->
+                                        <select data-query="attr('id', $this.nome+'LinkComponentParentName').each(recs)">
+                                            <!--<option value="" disabled selected>Choose Parent</option>
+                                            <option>{{$this.nome}}</option>-->
+                                            <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                        </select>
+                                        <label>To:</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click($parent.addCustomLink)">Add</a>
+                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
                     
                 </div> <!-- summary section -->
             
@@ -245,6 +323,7 @@
     <script src="js/libs/joint.js"></script>
     <script src="js/libs/blocks.js"></script>
     <script src="js/libs/materialize.js"></script>
+    <script src="js/libs/jquery.contextmenu.js"></script>
     <script src="js/customDiagrams.js"></script>
     <script src="js/newProject.js"></script>
     

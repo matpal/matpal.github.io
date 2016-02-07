@@ -248,6 +248,13 @@
                 android:resource="@xml/thing_sync_adapter"/>
         </service>
         <service android:name=".provider.SessionCleanerService"/>
+        
+        <receiver android:name="MyReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED">
+                </action>
+            </intent-filter>
+        </receiver>
 
         <meta-data
             android:name="com.google.android.backup.api_key"

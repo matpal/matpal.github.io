@@ -8569,6 +8569,15 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 @media (min-height: 40.125em) {
   .picker--time .picker__box {
     margin-bottom: 5em; } }
+body .panel h2 {
+  color: #0D47A1;
+  font-style: italic;
+  font-size: 32px; }
+body .panel input {
+  font-size: 24px; }
+body .panel .btn, body .panel .btn-large {
+  margin-bottom: 10px; }
+
 #sidebar {
   border-left: 2px solid #0D47A1; }
 
@@ -8606,5 +8615,8 @@ h4.title {
     cursor: pointer; }
     #contextmenu li.hover {
       background: #ddd; }
+
+#toolbar, #androidToolbar {
+  margin-top: 20px; }
 
 /*# sourceMappingURL=custom.css.map */

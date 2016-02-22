@@ -14,8 +14,8 @@
 <body data-query="view(ExistingProject)">
     <div class="row">
         <div class="col s12">
-            <a class="waves-effect waves-light btn modal-trigger blue lighten-2 pull-right" href="#androidManifestModal" 
-data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidManifest.xml</a>                   <div id="androidManifestModal" class="modal">
+            <a class="waves-effect waves-light btn modal-trigger blue lighten-2 pull-right" href="#androidManifestModal"
+data-query="visible(manifest.uploaded)" style="margin:10px 0">Load AndroidManifest.xml</a>                        <div id="androidManifestModal" class="modal">
                 <div class="modal-content center-align">
                     <h5>Upload your <strong>AndroidManifest.xml</strong></h5>
                     <input id="AndroidManifestUploadButton" type="file" data-query="change(uploadAndroidManifest)" />
@@ -25,19 +25,94 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                     <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
                 </div>
             </div>
+
+
         </div>
     </div>
 
 
 
 <div class="row">
-    <div class="col m3 s12">
+    <div class="col m3 s12 center-align">
+
+        <!--PROJECT-->
+        <div class="panel z-depth-1">
+            <h2>Project</h2>
+            <div class="input-field">
+                <input data-query="val(project)" id="projectNameInput" type="text" class="validate center-align">
+            </div>
+            <a class="waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(saveToJSON)"
+                data-position="bottom" data-tooltip="Save Project"
+            ><i class="fa fa-save"></i></a>
+
+            <div id="savedProject" class="modal">
+                <div class="modal-content center-align">
+
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>Project <strong>{{project}}</strong> succesfully saved.</h5>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="waves-effect waves-light btn blue lighten-2 tooltipped modal-trigger"  data-query="click(openProjectModal)"
+                data-position="bottom" data-tooltip="Load Project" href="#openProject"
+            ><i class="fa fa-folder-open-o"></i></a>
+
+            <div id="openProject" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                <div class="modal-content center-align">
+
+                    <div class="row">
+                        <div class="col s12">
+                            <h5>Load project</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <p class="center-align" data-query="visible(projectsEmpty)">No projects found.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="row" data-query="visible(!projectsEmpty())">
+                        <div class="col s10">
+                            <div class="input-field" >
+                                <select data-query="attr('id', 'projectName').each(projects)">
+                                    <option class="left" data-query="val($this).attr('id', $this)">{{$this}}</option>
+                                </select>
+                                <label>Select</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click(loadFromJSON).visible(!projectsEmpty())">Open</a>
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
         <!--ACTIVITIES-->
         <h5 class="center-align" data-query="visible(!activitiesEmpty())">Activities</h5>
         <ul id="dropActivityMenu" class="center-align" style="display:block" data-query="each(activities)">
             <li class="col s12" data-query="click(setAttiva)"><a data-query="attr('href','#'+$this.nome)">{{$this.nome}}</a></li>
         </ul>
-        
+
         <!--SERVICES-->
         <h5 class="center-align" data-query="visible(!servicesEmpty())">Services</h5>
         <ul id="dropServiceMenu" class="center-align" style="display:block" data-query="each(services)">
@@ -50,7 +125,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                 {{$this.nome}} <i class="fa fa-link"></i>
             </li>
         </ul>
-        
+
         <!--CONTENT PROVIDERS-->
         <h5 class="center-align" data-query="visible(!providersEmpty())">Content Providers</h5>
         <ul id="dropProviderMenu" class="center-align" style="display:block" data-query="each(providers)">
@@ -63,7 +138,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                 {{$this.nome}} <i class="fa fa-link"></i>
             </li>
         </ul>
-        
+
         <!--BROADCAST RECEIVERS-->
         <h5 class="center-align" data-query="visible(!receiversEmpty())">Broadcast Receivers</h5>
         <ul id="dropReceiversMenu" class="center-align" data-query="each(receivers)">
@@ -76,20 +151,44 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                 {{$this.nome}} <i class="fa fa-link"></i>
             </li>
         </ul>
-        
+
     </div>
-    
+
     <div class="col m9 s12">
         <!-- Crea dinamicamente i divs contenenti i diagrammi -->
         <div data-query="each(activities)">
-            
+
             <h4 class="center-align title" data-query="visible($this.isAttiva)">{{$this.nome}}</h4>
             <div style="position:relative" class="myholder" data-query="attr('id',$this.nome).visible($this.isAttiva).click($this.showMenu)">
             </div>
-            
+
 
             <div data-query="visible($this.isAttiva)">
-                
+                <div id="toolbar">
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(fitDiagram)"
+                        data-position="top" data-tooltip="Scale diagrams to fit frame"
+                    ><i class="fa fa-arrows-alt"></i></a>
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(layoutDiagram)"
+                        data-position="top" data-tooltip="Layout diagrams"
+                    ><i class="fa fa-table"></i></a>
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(zoomIn)"
+                        data-position="top" data-tooltip="Zoom In">
+                            <i class="fa fa-search-plus" ></i>
+                    </a>
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(zoomOut)"
+                        data-position="top" data-tooltip="Zoom Out">
+                            <i class="fa fa-search-minus"></i>
+                    </a>
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(toggleJavaElements)"
+                        data-position="top" data-tooltip="Toggle elements found in the Java file">
+                            <i class="fa fa-eye"></i> Java
+                    </a>
+                    <a class="waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(toggleLayoutElements)"
+                        data-position="top" data-tooltip="Toggle elements found in the Layout file">
+                            <i class="fa fa-eye"></i> Layout
+                    </a>
+                </div>
+
                 <table class="centered">
                     <thead>
                         <tr>
@@ -98,34 +197,34 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             <th>Java Class File</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         <tr>
                             <td>{{$this.nome}}</td>
                             <td>
-                                <i class="fa fa-lg" 
+                                <i class="fa fa-lg"
                                     data-query="setClass('fa-ban',!$this.layoutFileUploaded()).setClass('fa-check', $this.layoutFileUploaded)"
                                 ></i>
                             </td>
                             <td>
-                                <i class="fa fa-lg" 
+                                <i class="fa fa-lg"
                                     data-query="setClass('fa-ban',!$this.javaFileUploaded()).setClass('fa-check', $this.javaFileUploaded)"
                                 ></i>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                
+
                 <div class="col s6">
                     <div class="col s6">
-                        Layout File:        
+                        Layout File:
                     </div>
                     <div class="col s6">
                         <input  type="file" data-query="attr('id','layoutFile'+$this.nome).change($this.loadLayoutFile)" />
                         {{$this.messages.layoutFile}}
                     </div>
                     <div class="col s6">
-                        Java Class File:        
+                        Java Class File:
                     </div>
                     <div class="col s6">
                         <input type="file" data-query="attr('id','javaFile'+$this.nome).change($this.loadJavaFile)" />
@@ -133,7 +232,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                     </div>
                 </div>
                 <div class="col s6"></div>
-                
+
                 <!--MODAL ADD ANDROID COMPONENT-->
                 <div data-query="attr('id', $this.nome + 'NewAndroidComponentModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                         <div class="modal-content center-align">
@@ -149,21 +248,21 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                             <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
                                         </select>
                                         <label>Select</label>
-                                    </div>        
+                                    </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
                                         <label>Name</label>
-                                        <input type="text" placeholder="Component Name" 
+                                        <input type="text" placeholder="Component Name"
                                         data-query="attr('id', $this.nome + 'ComponentName')">
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
@@ -174,18 +273,18 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
-                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each(recs)">
+                                        <select data-query="attr('id', $this.nome+'ComponentParentName').each(recsName)">
                                             <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
                                         </select>
                                         <label>Attach to:</label>
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="modal-footer">
                             <div class="row">
@@ -196,11 +295,11 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                     <!--MODAL ADD CUSTOM CLASS-->
                     <div data-query="attr('id', $this.nome + 'NewCustomClassModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                         <div class="modal-content center-align">
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <h5>New <strong>Custom Class</strong></h5>
@@ -209,10 +308,10 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                             <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
                                         </select>
                                         <label>Select class type</label>
-                                    </div>        
+                                    </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
@@ -222,11 +321,11 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
-                                        
+
                                         <select data-query="attr('id', $this.nome+'CustomClassRelationType').each(UmlLinks)">
                                             <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
                                         </select>
@@ -234,11 +333,11 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
-                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each(recs)">
+                                        <select data-query="attr('id', $this.nome+'CustomClassParentName').each(recsName)">
                                             <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
                                         </select>
                                         <label>Attach to:</label>
@@ -256,18 +355,18 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- MODAL ADD CUSTOM LINK-->
                     <div data-query="attr('id', $this.nome + 'NewCustomLinkModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                         <div class="modal-content center-align">
-                            
-                                    
+
+
                             <div class="row">
                                 <div class="col s10">
                                     <h5>New <strong>Relation</strong></h5>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
@@ -278,11 +377,11 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col s10">
                                     <div class="input-field">
-                                        <select data-query="attr('id', $this.nome+'LinkComponentChildName').each(recs)">
+                                        <select data-query="attr('id', $this.nome+'LinkComponentChildName').each(recsName)">
                                             <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
                                         </select>
                                         <label>From:</label>
@@ -299,7 +398,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="modal-footer">
                             <div class="row">
@@ -310,31 +409,31 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
-                    
+
+
             </div>
-            
-            
+
+
 
         </div>
-        
+
         <!--ATTACH UNLINKED SERVICE-->
         <div data-query="each(services)">
             <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                 <div class="modal-content center-align">
-                    
-                            
+
+
                     <div class="row">
                         <div class="col s10">
                             <img alt="" data-query="attr('src',AndroidComponents.service.icon)">
                             <h5>Attach <strong>{{$this.nome}}</strong></h5>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
-                                <select data-query="attr('id', $this.nome+'UnattachedServiceParentName').each($parent.activities())">
+                                <select data-query="attr('id', $this.nome+'UnattachedServiceParentName').each($parent.activities)">
                                     <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
                                     <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
                                 </select>
@@ -342,7 +441,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
@@ -353,7 +452,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="row">
@@ -364,26 +463,26 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
-        
+
+
         <!--ATTACH UNLINKED CONTENT PROVIDERS-->
         <div data-query="each(providers)">
             <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                 <div class="modal-content center-align">
-                                                
+
                     <div class="row">
                         <div class="col s10">
                             <img alt="" data-query="attr('src',AndroidComponents.contentProvider.icon)">
                             <h5>Attach <strong>{{$this.nome}}</strong></h5>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
-                                <select data-query="attr('id', $this.nome+'UnattachedProviderParentName').each($parent.activities())">
+                                <select data-query="attr('id', $this.nome+'UnattachedProviderParentName').each($parent.activities)">
                                     <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
                                     <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
                                 </select>
@@ -391,7 +490,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
@@ -402,7 +501,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="row">
@@ -413,26 +512,26 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
-        
+
+
         <!--ATTACH UNLINKED BROADCAST RECEIVERS-->
         <div data-query="each(receivers)">
             <div data-query="attr('id', $this.nome + 'AttachModal')" class="modal bottom-sheet" style="height:100%;max-height:100%">
                 <div class="modal-content center-align">
-                                                
+
                     <div class="row">
                         <div class="col s10">
                             <img alt="" data-query="attr('src',AndroidComponents.broadcastReceiver.icon)">
                             <h5>Attach <strong>{{$this.nome}}</strong></h5>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
-                                <select data-query="attr('id', $this.nome+'UnattachedReceiverParentName').each($parent.activities())">
+                                <select data-query="attr('id', $this.nome+'UnattachedReceiverParentName').each($parent.activities)">
                                     <!--<option class="left" data-query="val($this.nome).attr('data-icon', AndroidComponents.activity.icon)">{{$this}}</option>-->
                                     <option class="left" data-query="attr('data-icon',AndroidComponents.activity.icon).html($this.nome).attr('id',$this.nome).val($this.nome)"></option>
                                 </select>
@@ -440,7 +539,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col s10">
                             <div class="input-field">
@@ -451,7 +550,7 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                     <div class="row">
@@ -462,9 +561,9 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
                     </div>
                 </div>
             </div>
-            
+
         </div>
-        
+
     </div>
 </div>
 
@@ -479,12 +578,17 @@ data-query="visible(manifest.uploaded)" style="margin:10px 0">Change AndroidMani
     <script src="js/libs/jquery.min.js"></script>
     <script src="js/libs/lodash.min.js"></script>
     <script src="js/libs/backbone-min.js"></script>
+    <script src="js/libs/dagre.js"></script>
+    <script src="js/libs/graphlib.js"></script>
     <script src="js/libs/joint.js"></script>
+    <script src="js/libs/joint.layout.DirectedGraph.js"></script>
     <script src="js/libs/blocks.js"></script>
     <script src="js/libs/materialize.js"></script>
     <script src="js/libs/jquery.contextmenu.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/customDiagrams.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/existingProject.js"></script>
-    
+
 </body>
 </html>

@@ -1,5 +1,25 @@
 @import "materialize";
 
+body{
+    .panel{
+        // background-color: color('blue', 'lighten-5');
+
+        h2{
+            color: color('blue', 'darken-4');
+            font-style:italic;
+            font-size:32px;
+        }
+
+        input{
+            font-size:24px;
+        }
+
+        .btn{
+            margin-bottom:10px;
+        }
+    }
+}
+
 #sidebar{
   border-left: 2px solid color('blue','darken-4');
 }
@@ -36,20 +56,24 @@ h4{
 }
 
 #contextmenu{
-    margin:0;
-	padding:0;
+  margin:0;
+  padding:0;
 	border: 1px solid #000;
 	background:#ccc;
-    
+
     li {
         list-style-type:none;
         margin:1px;
         padding:2px;
         cursor:pointer;
-        
+
         &.hover{
             background: #ddd;
         }
     }
-   
+
+}
+
+#toolbar, #androidToolbar{
+    margin-top: 20px;
 }

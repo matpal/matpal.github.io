@@ -600,6 +600,8 @@ function generateContentProviderClassFile(packageName, className){
     content += '\t@Override\n';
     content += '\tpublic String getType(Uri uri) {\n\n';
     content += '\t}\n\n';
+    
+    content += '}\n';
 
     return content;
 }

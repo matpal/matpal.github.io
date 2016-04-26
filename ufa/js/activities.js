@@ -458,6 +458,7 @@ App.View('ModelingActivities', {
 
                                 });
                                 // newActivity.initActivity();
+                                newActivity.createPaper();
                                 newActivity.setAttiva();
                                 view.activities.add(newActivity);
                                 view.activities()[view.activities().length-1].setAttiva();

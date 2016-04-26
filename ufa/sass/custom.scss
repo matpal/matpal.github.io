@@ -1,0 +1,86 @@
+@import "materialize";
+
+body{
+    #applicationSummarySection{
+        display:none;
+    }
+
+    .panel{
+        // background-color: color('blue', 'lighten-5');
+
+        h2{
+            color: color('blue', 'darken-4');
+            font-style:italic;
+            font-size:32px;
+        }
+
+        input{
+            font-size:24px;
+        }
+
+        .btn{
+            margin-bottom:10px;
+        }
+    }
+    #manifest_preview_container{
+      display:none;
+    }
+}
+
+#sidebar{
+  border-left: 2px solid color('blue','darken-4');
+}
+
+.collapsible-body{
+  padding:10px;
+}
+.button-collapse{
+    padding: 0 5px;
+    margin: 0 10px;
+}
+.side-nav .collapsible-body li a{
+    margin: 0;
+}
+
+h4{
+    &.title{
+        background-color: color('blue','lighten-3');
+        padding:10px 0;
+        margin:0;
+    }
+}
+
+.myholder{
+    border:1px solid color('blue','lighten-3');
+    // background: #ffffff url("../grid.png") repeat;
+    // background-color: #efefef;
+    // background-color:#DAEEFD;
+    background-color:#fff;
+}
+
+.modal-footer a.modal-action{
+    margin: 0 5px !important;
+}
+
+#contextmenu{
+  margin:0;
+  padding:0;
+	border: 1px solid #000;
+	background:#ccc;
+
+    li {
+        list-style-type:none;
+        margin:1px;
+        padding:2px;
+        cursor:pointer;
+
+        &.hover{
+            background: #ddd;
+        }
+    }
+
+}
+
+#toolbar, #androidToolbar{
+    margin-top: 20px;
+}

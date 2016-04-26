@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="matpal.github.io"
+	android:versionCode="1"
+	android:versionName="1">
+
+		<uses-sdk
+			android:minSdkVersion="1"
+			android:targetSdkVersion="17"
+			android:maxSdkVersion="23" />
+
+		<uses-permission android:name="android.permission.CAMERA" />
+		<uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
+
+		<application
+			android:name="testApp"
+		>
+			<activity
+				android:name="Activity1">
+			</activity>
+			<activity
+				android:name="Activity2">
+					<intent-filter>
+						<action
+							android:name="Intent1"
+						/>
+					</intent-filter>
+			</activity>
+			<service
+				android:name="Servizio1">
+			</service>
+			<receiver
+				android:name="Receiver1">
+			</receiver>
+			<provider
+				android:name="Provider1">
+			</provider>
+		</application>
+</manifest>

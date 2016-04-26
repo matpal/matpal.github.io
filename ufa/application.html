@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="css/joint.css" />
+    <link rel="stylesheet" type="text/css" href="css/materialize.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/awesomplete.css" />
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+</head>
+
+<body data-query="view(ModelingApplication)">
+    <div id="projectSection" style="margin:20px 20px">
+        <a class="btn-floating btn-large waves-effect waves-light btn blue lighten-2 tooltipped"
+            data-position="bottom" data-tooltip="Go to the Home Page" href="index.html"
+        ><i class="fa fa-home"></i></a>
+
+        <a class="btn-floating btn-large waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(saveToJSON)"
+            data-position="bottom" data-tooltip="Save Project"
+        ><i class="fa fa-save"></i></a>
+
+        <div id="savedProject" class="modal">
+            <div class="modal-content center-align">
+
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Project <strong>{{project}}</strong> succesfully saved.</h5>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col s12">
+                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn-floating btn-large waves-effect waves-light btn blue lighten-2 tooltipped modal-trigger"  data-query="click(openProjectModal)"
+            data-position="bottom" data-tooltip="Load Project" href="#openProject"
+        ><i class="fa fa-folder-open-o"></i></a>
+
+        <div id="openProject" class="modal bottom-sheet" style="height:100%;max-height:100%">
+            <div class="modal-content center-align">
+
+                <div class="row">
+                    <div class="col s12">
+                        <h5>Load project</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p class="center-align" data-query="visible(projectsEmpty)">No projects found.</p>
+                    </div>
+                </div>
+
+
+                <div class="row" data-query="visible(!projectsEmpty())">
+                    <div class="col s10">
+                        <div class="input-field" >
+                            <select data-query="attr('id', 'projectName').each(projects)">
+                                <option class="left" data-query="val($this).attr('id', $this)">{{$this}}</option>
+                            </select>
+                            <label>Select</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col s12">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click(loadFromJSON).visible(!projectsEmpty())">Open</a>
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a class="btn-floating btn-large waves-effect waves-light  btn blue lighten-2 tooltipped" data-position="bottom" data-tooltip="Edit Application informations" data-query="click(toggleEditApplicationSection)"><i class="fa fa-pencil-square-o"></i></a>
+        <a class="btn-floating btn-large waves-effect waves-light  btn blue lighten-2 tooltipped" data-position="bottom" data-tooltip="Show Application informations"
+        data-query="click(toggleSummaryApplicationSection)"><i class="fa fa-list"></i></a>
+    </div>
+
+    <div id="applicationEditSection">
+        <div class="row" >
+            <div class="col s12 center-align" >
+                <h1>Android Application</h1>
+                <h3 data-query="visible(!startingDiagram())">Please enter the following information</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s6 center-align">
+                <div class="input-field">
+                    <input data-query="val(androidApplication.applicationName)" id="applicationNameInput" type="text" class="validate center-align">
+                    <label for="applicationNameInput">Application name</label>
+                </div>
+            </div>
+            <div class="col s6 center-align">
+                <div class="input-field">
+                    <input data-query="val(androidApplication.packageName)" id="packageNameInput" type="text" class="validate center-align">
+                    <label for="packageNameInput">Package name</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="permissionRow">
+            <div class="col s6">
+                <div class="input-field">
+                    <input type="text" data-query="val(androidApplication.permission.name).keydown(keydown)" placeholder="Android standard permission" class="validate awesomplete" id="permissionInputEditApplication">
+                </div>
+            </div>
+            <div class="col s6">
+                <table data-query="visible(!permissionsEmpty())" class="bordered highlight centered" id="permissionTable">
+                    <thead>
+                        <tr>
+                            <th>Permissions</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody data-query="each(androidApplication.permissions)">
+                        <tr>
+                            <td>{{name}}</td>
+                            <td><span class="red-text" data-query="click(remove)"><i class="fa fa-lg fa-times"></i></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row" id="sdkRow">
+            <div class="col s12 center-align">
+                <p><strong>Api Level</strong></p>
+            </div>
+            <!-- MIN SDK -->
+            <div class="col s4">
+                <form action="#">
+                <label for="minSdk">Min Sdk</label>
+                    <p class="range-field">
+                        <span>{{androidApplication.minSdk}}</span><input type="range" id="minSdk" min="1" max="23" data-query="val(androidApplication.minSdk)"/>
+                    </p>
+                </form>
+            </div>
+
+            <!-- MAX SDK -->
+            <div class="col s4">
+                <form action="#">
+                <label for="maxSdk">Max Sdk</label>
+                    <p class="range-field">
+                        <span>{{androidApplication.maxSdk}}</span><input type="range" id="maxSdk" min="1" max="23" data-query="val(androidApplication.maxSdk)"/>
+                    </p>
+                </form>
+            </div>
+
+            <!-- TARGET SDK -->
+            <div class="col s4">
+                <form action="#">
+                <label for="targetSdk">Target Sdk</label>
+                    <p class="range-field">
+                        <span>{{androidApplication.targetSdk}}</span><input type="range" id="targetSdk" min="1" max="23" data-query="val(androidApplication.targetSdk)"/>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="row" data-query="visible(!startingDiagram())">
+            <div class="col s12 center-align">
+                <a id="buttonStart" class="waves-effect waves-light btn blue lighten-2" data-query="click(createApplicationDiagram)">Start</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="applicationSummarySection">
+        <h1 class="center-align">Summary</h1>
+        <div class="row">
+            <div class="col s3 center-align">
+                <p>Application Name</p>
+                <p>Package</p>
+                <p>Min Sdk</p>
+                <p>Max Sdk</p>
+                <p>Target Sdk</p>
+            </div>
+            <div class="col s3">
+                <h5>
+                    <span data-query="visible(androidApplication.applicationName)">{{androidApplication.applicationName}}</span>
+                    <em data-query="visible(!androidApplication.applicationName())">
+                        Unknown
+                    </em>
+                </h5>
+                <h5>
+                    <span data-query="visible(androidApplication.packageName)">
+                        {{androidApplication.packageName}}
+                    </span>
+                    <em data-query="visible(!androidApplication.packageName())">
+                        Unknown
+                    </em>
+                </h5>
+                <h5>{{androidApplication.minSdk}}</h5>
+                <h5>{{androidApplication.maxSdk}}</h5>
+                <h5>{{androidApplication.targetSdk}}</h5>
+            </div>
+            <div class="col s6">
+                <!-- <div class="input-field">
+                    <input type="text" data-query="val(androidApplication.permission.name).keydown(keydown)" placeholder="Android standard permission" class="validate awesomplete" id="permissionInputSummary">
+                </div> -->
+
+                <table data-query="visible(!permissionsEmpty())" class="bordered highlight centered" id="permissionTable">
+                    <thead>
+                        <tr>
+                            <th>Permissions</th>
+                        </tr>
+                    </thead>
+                    <tbody data-query="each(androidApplication.permissions)">
+                        <tr>
+                            <td>{{name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row" data-query="visible(startingDiagram)">
+
+        <div class="col s12">
+            <!-- DIAGRAM -->
+            <div style="position:relative" class="myholder" id="applicationDiagram" data-query="click(showMenu)">
+            </div>
+
+
+            <div id="toolbar">
+                <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(fitDiagram)"
+                    data-position="top" data-tooltip="Scale diagrams to fit frame"
+                ><i class="fa fa-arrows-alt"></i></a>
+                <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(layoutDiagram)"
+                    data-position="top" data-tooltip="Layout diagrams"
+                ><i class="fa fa-table"></i></a>
+                <a class="waves-effect waves-light btn blue lighten-2 tooltipped" data-query="click(zoomIn)"
+                    data-position="top" data-tooltip="Zoom In"
+                ><i class="fa fa-search-plus" ></i></a>
+                <a class="waves-effect waves-light btn blue lighten-2 tooltipped"  data-query="click(zoomOut)"
+                    data-position="top" data-tooltip="Zoom Out"
+                ><i class="fa fa-search-minus"></i></a>
+            </div>
+
+            <div id="androidToolbar">
+                <!--
+                    ANDROID COMPONENT
+                -->
+                <a
+                    class="waves-effect waves-light btn modal-trigger blue lighten-2"
+                    href="#NewAndroidComponentModal"
+                    data-query="click(openModalWindow)"
+                >
+                    <i class="fa fa-android left"></i> Add Android Component
+                </a>
+
+                <div id="NewAndroidComponentModal" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                    <div class="modal-content center-align">
+
+                        <div class="row">
+                            <div class="col s12">
+                                <h5>Choose which <strong>component</strong> to add</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field" >
+                                    <select id="ComponentType"data-query="each(AndroidManifestComponents)">
+                                        <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                    </select>
+                                    <label>Select</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <label>Name</label>
+                                    <input type="text" placeholder="Component Name"
+                                    id="ComponentName">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+
+                                    <select id="ComponentRelationType" data-query="each(UmlLinks)">
+                                        <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                    </select>
+                                    <label>Relation type</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <!--<select data-query="each($parent.currentActivity.recs)">-->
+                                    <select id="ComponentParentName" data-query="each(recsName)">
+                                        <!--<option value="" disabled selected>Choose Parent</option>
+                                        <option>{{$this.nome}}</option>-->
+                                        <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                    </select>
+                                    <label>Attach to:</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click(addAndroidComponentTo)">Add</a>
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                    CUSTOM CLASS
+                -->
+                <!-- <a
+                    class="waves-effect waves-light btn modal-trigger blue lighten-2"
+                    href="#NewCustomClassModal"
+                    data-query="click(openModalWindow)"
+                >
+                    <i class="fa fa-square-o left"></i> Add Custom Class
+                </a>
+
+                <div id="NewCustomClassModal" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                    <div class="modal-content center-align">
+
+                        <div class="row">
+                            <div class="col s10">
+                                <h5>New <strong>Custom Class</strong></h5>
+                                <div class="input-field" >
+                                    <select id="CustomClassType" data-query="each(ClassTypes)">
+                                        <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id', $this.id)">{{$this.name}}</option>
+                                    </select>
+                                    <label>Select class type</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <label>Name</label>
+                                    <input type="text" id="CustomClassName" placeholder="Class Name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+
+                                    <select id="CustomClassRelationType"
+                                    data-query="each(UmlLinks)">
+                                        <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                    </select>
+                                    <label>Relation type</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <select id="CustomClassParentName" data-query="each(recsName)">
+
+                                        <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                    </select>
+                                    <label>Attach to:</label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text" data-query="click(addCustomClassTo)">Add</a>
+                                <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat blue lighten-2 white-text">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!--
+                    CUSTOM LINK
+                -->
+                <a
+                    class="waves-effect waves-light btn modal-trigger blue lighten-2"
+                    href="#NewCustomLinkModal"
+                    data-query="visible(!($this.recs().length < 2)).
+                    click(openModalWindow)"
+                >
+                    <i class="fa fa-arrow-up left"></i> Add Relation
+                </a>
+
+
+                <div id="NewCustomLinkModal" class="modal bottom-sheet" style="height:100%;max-height:100%">
+                    <div class="modal-content center-align">
+
+                        <div class="row">
+                            <div class="col s10">
+                                <h5>New <strong>Relation</strong></h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <select id="LinkComponentRelationType" data-query="each(UmlLinks)">
+                                        <option class="left" data-query="val($this.name).attr('data-icon', $this.icon).attr('id',$this.id)">{{$this.name}}</option>
+                                    </select>
+                                    <label>Relation type</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <select id="LinkComponentChildName" data-query="each(recsName)">
+                                        <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                    </select>
+                                    <label>From:</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s10">
+                                <div class="input-field">
+                                    <select id="LinkComponentParentName" data-query="each(recsName)">
+                                        <option data-query="val($this.attributes.name).attr('id',$this.attributes.id)">{{$this.attributes.name}}</option>
+                                    </select>
+                                    <label>To:</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col s12">
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text" data-query="click(addCustomLink)">Add</a>
+                                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat blue lighten-2 white-text">Close</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a class="waves-effect waves-light btn blue lighten-2 pull-right" data-query="click(generateManifest)">Generate AndroidManifest.xml</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/libs/jquery.min.js"></script>
+    <script src="js/libs/lodash.min.js"></script>
+    <script src="js/libs/backbone-min.js"></script>
+    <script src="js/libs/dagre.js"></script>
+    <script src="js/libs/graphlib.js"></script>
+    <script src="js/libs/joint.js"></script>
+    <script src="js/libs/joint.layout.DirectedGraph.js"></script>
+    <script src="js/libs/blocks.js"></script>
+    <script src="js/libs/materialize.js"></script>
+    <script src="js/libs/jquery.contextmenu.js"></script>
+    <script src="js/libs/awesomplete.min.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/customDiagrams.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/application.js"></script>
+</body>

@@ -1,41 +1,95 @@
+@charset "UTF-8";
 body {
   margin: 0;
   padding: 0;
-  background-color: #e9e9e9; }
-  body h1 {
-    margin: 0;
-    text-align: center; }
+  font-family: 'Wire One', sans-serif !important;
+  text-align: center; }
+  body .container {
+    width: 100%;
+    max-width: 100%;
+    clear: both;
+    margin: 0 auto;
+    padding: 0 20px; }
+    body .container h1.section-title {
+      border-bottom: 2px solid black; }
+  body .header {
+    margin-bottom: 40px; }
+    body .header h1.name {
+      margin: 0; }
+      body .header h1.name span {
+        display: inline-block; }
+      body .header h1.name span::first-letter {
+        font-size: 1.5em; }
+    body .header h3 {
+      font-style: italic;
+      margin: 0; }
+    body .header #logo {
+      padding: 40px 20px 40px 20px;
+      border-right: 2px solid black;
+      margin: 0;
+      margin-bottom: -7px;
+      width: 100%; }
   body nav {
-    width: 300px;
-    background-color: white;
-    float: left;
-    max-height: 100%;
-    font-family: 'Wire One', sans-serif;
+    padding-top: 10px;
     font-size: 32px;
     font-size: 2rem;
-    line-height: 42px;
-    border-right: 5px solid #862c2c; }
+    line-height: 42px; }
     body nav ul {
       margin: 0;
       list-style-type: none;
       text-align: right; }
       body nav ul li {
         margin-right: 30px; }
+        body nav ul li a {
+          text-decoration: none;
+          color: black;
+          font-size: 36px; }
+          body nav ul li a:hover {
+            color: black;
+            border-bottom: 2px solid black; }
+  body #esperienze .panel {
+    font-family: 'Verdana'; }
+    body #esperienze .panel .panel-image {
+      width: 200px;
+      height: auto;
+      border: 1px solid black;
+      float: left; }
+    body #esperienze .panel .panel-content h1 {
+      font-size: 32px;
+      font-size: 2rem; }
+  body #phrase-container {
+    background-color: #ededed;
+    font-family: 'Century Gothic', sans-serif; }
+    body #phrase-container #phrase {
+      line-height: 100px; }
+      body #phrase-container #phrase q {
+        quotes: "“" "”" "‘" "’"; }
+        body #phrase-container #phrase q:before {
+          content: open-quote;
+          font-size: 4em;
+          margin: 10px;
+          vertical-align: -0.4em; }
+        body #phrase-container #phrase q:after {
+          content: close-quote;
+          font-size: 4em;
+          margin: 10px;
+          vertical-align: -0.4em; }
+        body #phrase-container #phrase q p {
+          display: inline;
+          font-style: italic;
+          font-size: 18px; }
+      body #phrase-container #phrase h4 {
+        margin-left: 20px; }
   body footer {
     text-align: center;
-    position: absolute;
-    bottom: 0;
-    width: 100%; }
-    body footer h1 {
-      font-family: 'Wire One', sans-serif;
-      font-size: 3em;
+    background-color: black;
+    color: white;
+    padding: 0;
+    height: 150px; }
+    body footer ul li {
+      display: inline;
       margin: 0 30px; }
-    body footer ul {
-      padding: 0; }
-      body footer ul li {
-        display: inline;
-        margin: 0 30px; }
-        body footer ul li a {
-          color: black; }
+      body footer ul li a {
+        color: black; }
 
 /*# sourceMappingURL=custom.css.map */

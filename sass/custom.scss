@@ -16,6 +16,13 @@ html, button, input, select, textarea,
 }
 
 body{
+
+
+  // -moz-border-image:url("../img/border.png") 100% 100% repeat; /* Old Firefox */
+  // -webkit-border-image:url("../img/border.png") 100% 100% repeat; /* Safari */
+  // -o-border-image:url("../img/border.png") 100% 100% repeat; /* Opera */
+  background: url("../img/border.png") repeat-y;
+
   h1,h2,h3,h4,h5,h6{
     font-weight: lighter;
   }
@@ -87,6 +94,14 @@ body{
       text-align: center;
     }
 
+    #conoscenze{
+      text-align: center;
+
+      table{
+        margin:0 auto;
+      }
+    }
+
     #esperienze{
       text-align:center;
 
@@ -96,38 +111,80 @@ body{
         font-family: 'Open Sans';
       }
       .card{
-        margin:40px 80px;
+        display:block;
+        position:relative;
 
-        @include transition(0.5s all);
-        @include transform(scale(1,1));
-        &:hover{
-          box-shadow: 0 8px 17px gray;
-          -webkit-box-shadow: 0 8px 17px gray;
-          -moz-box-shadow: 0 8px 17px gray;
-          @include transform(scale(1.05,1.05));
+        .card-image{
+
+          img{
+            display:block;
+            margin:0 auto;
+          }
 
         }
 
+        .card-description {
 
-        .card-image{
-          // border-bottom:1px solid red;
-          display:flex;
-          align-items: center;
-          justify-content: center;
-          img{
-            // display:inline;
-            // padding:22%;
-            max-width: 50%;
+          // background: $pink-color;
+          height: 100%;
+          width: 100%;
+          opacity: 0;
+          top: 0;
+          left: 0;
+          position: absolute;
+          padding: 0;
+          transition: opacity .5s;
+          background-color:white;
+          border-top: 2px solid black;
+          border-bottom: 2px solid black;
+
+          p {
+            // color: #fff;
+            // line-height: 150px;
+            text-align: center;
           }
         }
 
-        .card-content{
-          font-family: 'Open Sans';
-          @include font-size(9px);
-          
+        &:hover {
+          .card-description {
+            opacity: 1;
+            transition: opacity .5s;
+          }
         }
+        // margin:40px 80px;
+        //
+        // @include transition(0.5s all);
+        // @include transform(scale(1,1));
+        // &:hover{
+        //   box-shadow: 0 8px 17px gray;
+        //   -webkit-box-shadow: 0 8px 17px gray;
+        //   -moz-box-shadow: 0 8px 17px gray;
+        //   @include transform(scale(1.05,1.05));
+        //
+        // }
+        //
+        //
+        // .card-image{
+        //   // border-bottom:1px solid red;
+        //   display:flex;
+        //   align-items: center;
+        //   justify-content: center;
+        //   img{
+        //     // display:inline;
+        //     // padding:22%;
+        //     max-width: 50%;
+        //   }
+        // }
+        //
+        // .card-content{
+        //   font-family: 'Open Sans';
+        //   @include font-size(9px);
+        //
+        // }
       }
     }
+
+
 
     #phrase-container{
         background-color: $light-grey;

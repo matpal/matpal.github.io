@@ -60,9 +60,6 @@ body {
     body #esperienze .card {
       display: block;
       position: relative; }
-      body #esperienze .card .card-image img {
-        display: block;
-        margin: 0 auto; }
       body #esperienze .card .card-description {
         height: 100%;
         width: 100%;
@@ -77,6 +74,8 @@ body {
         border-bottom: 2px solid black; }
         body #esperienze .card .card-description p {
           text-align: center; }
+        body #esperienze .card .card-description a {
+          display: block; }
       body #esperienze .card:hover .card-description {
         opacity: 1;
         transition: opacity .5s; }
@@ -133,7 +132,7 @@ body {
     body nav ul li {
       display: inline; }
   body #esperienze .card {
-    margin: 40px 20px; }
+    margin: 10px 20px; }
     body #esperienze .card:hover {
       box-shadow: none;
       -webkit-box-shadow: none;
@@ -144,7 +143,6 @@ body {
       -o-transform: scale(1, 1);
       transform: scale(1, 1); }
     body #esperienze .card .card-image img {
-      display: inline;
-      padding: 10%; } }
+      display: inline; } }
 
 /*# sourceMappingURL=custom.css.map */

@@ -30,6 +30,10 @@ body{
   p{
     font-family: 'Open Sans';
     @include font-size(9px);
+
+    &.instructions{
+      display:none;
+    }
   }
 
   .header{
@@ -310,6 +314,10 @@ body{
         margin-left:0;
       }
     }
+    p.instructions{
+      display:block;
+      font-style:italic;
+    }
     nav{
 
       ul{
@@ -324,6 +332,7 @@ body{
     .section-title{
       margin-left:60px;
       margin-right:60px;
+      margin-top:20px;
     }
 
     #bio{
@@ -336,18 +345,18 @@ body{
         margin:10px 20px;
 
         &:hover{
-          box-shadow:none;
-          -webkit-box-shadow: none ;
-          -moz-box-shadow: none;
-          @include transform(scale(1,1));
+          // box-shadow:none;
+          // -webkit-box-shadow: none ;
+          // -moz-box-shadow: none;
+          // @include transform(scale(1,1));
 
         }
 
         .card-image{
-
+          min-height: 200px;
           img{
-            display:inline;
-            // padding:10%;
+            // display:inline;
+            // padding:0;
           }
         }
       }

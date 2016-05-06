@@ -15,6 +15,8 @@ body {
     font-family: 'Open Sans';
     font-size: 9px;
     font-size: 0.5625rem; }
+    body p.instructions {
+      display: none; }
   body .header #logo-container {
     border-right: 2px solid black; }
     body .header #logo-container #logo {
@@ -153,27 +155,22 @@ body {
       border: none; }
     body .header h1, body .header h2 {
       margin-left: 0; }
+  body p.instructions {
+    display: block;
+    font-style: italic; }
   body nav ul {
     text-align: center; }
     body nav ul li {
       display: inline; }
   body .section-title {
     margin-left: 60px;
-    margin-right: 60px; }
+    margin-right: 60px;
+    margin-top: 20px; }
   body #bio p {
     margin: 0 60px; }
   body #esperienze .card, body #progetti .card {
     margin: 10px 20px; }
-    body #esperienze .card:hover, body #progetti .card:hover {
-      box-shadow: none;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      -webkit-transform: scale(1, 1);
-      -moz-transform: scale(1, 1);
-      -ms-transform: scale(1, 1);
-      -o-transform: scale(1, 1);
-      transform: scale(1, 1); }
-    body #esperienze .card .card-image img, body #progetti .card .card-image img {
-      display: inline; } }
+    body #esperienze .card .card-image, body #progetti .card .card-image {
+      min-height: 200px; } }
 
 /*# sourceMappingURL=custom.css.map */

@@ -48,7 +48,8 @@ body {
     border-bottom: 2px solid black;
     text-align: center;
     padding-left: 56px;
-    margin: 0 20px; }
+    margin: 0 20px;
+    padding-bottom: 10px; }
   body #conoscenze {
     text-align: center; }
     body #conoscenze table {
@@ -68,19 +69,21 @@ body {
       body #conoscenze table .empty {
         background-color: #909090;
         border: 2px solid #d2d2d2; }
-  body #esperienze {
+  body #esperienze, body #progetti {
     text-align: center; }
-    body #esperienze h2 {
+    body #esperienze h2, body #progetti h2 {
       text-decoration: underline;
       font-style: italic;
       font-family: 'Open Sans'; }
-    body #esperienze .card {
+    body #esperienze .card, body #progetti .card {
       display: block;
       position: relative; }
-      body #esperienze .card .card-image img {
-        display: block;
-        margin: 0 auto; }
-      body #esperienze .card .card-description {
+      body #esperienze .card .card-image, body #progetti .card .card-image {
+        min-height: 300px; }
+        body #esperienze .card .card-image img, body #progetti .card .card-image img {
+          display: block;
+          margin: 0 auto; }
+      body #esperienze .card .card-description, body #progetti .card .card-description {
         height: 100%;
         width: 100%;
         opacity: 0;
@@ -89,14 +92,12 @@ body {
         position: absolute;
         padding: 0;
         transition: opacity .5s;
-        background-color: white;
-        border-top: 2px solid black;
-        border-bottom: 2px solid black; }
-        body #esperienze .card .card-description p {
+        background-color: white; }
+        body #esperienze .card .card-description p, body #progetti .card .card-description p {
           text-align: center; }
-        body #esperienze .card .card-description a {
+        body #esperienze .card .card-description a, body #progetti .card .card-description a {
           display: block; }
-      body #esperienze .card:hover .card-description {
+      body #esperienze .card:hover .card-description, body #progetti .card:hover .card-description {
         opacity: 1;
         transition: opacity .5s; }
   body #phrase-container {
@@ -161,9 +162,9 @@ body {
     margin-right: 60px; }
   body #bio p {
     margin: 0 60px; }
-  body #esperienze .card {
+  body #esperienze .card, body #progetti .card {
     margin: 10px 20px; }
-    body #esperienze .card:hover {
+    body #esperienze .card:hover, body #progetti .card:hover {
       box-shadow: none;
       -webkit-box-shadow: none;
       -moz-box-shadow: none;
@@ -172,7 +173,7 @@ body {
       -ms-transform: scale(1, 1);
       -o-transform: scale(1, 1);
       transform: scale(1, 1); }
-    body #esperienze .card .card-image img {
+    body #esperienze .card .card-image img, body #progetti .card .card-image img {
       display: inline; } }
 
 /*# sourceMappingURL=custom.css.map */

@@ -46,11 +46,28 @@ body {
           border-bottom: 2px solid black; }
   body .section-title {
     border-bottom: 2px solid black;
-    text-align: center; }
+    text-align: center;
+    padding-left: 56px;
+    margin: 0 20px; }
   body #conoscenze {
     text-align: center; }
     body #conoscenze table {
       margin: 0 auto; }
+      body #conoscenze table td {
+        font-family: 'Open Sans';
+        font-size: 10px;
+        font-size: 0.625rem; }
+      body #conoscenze table .value {
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        background-color: black;
+        border: 2px solid #3c3c3c;
+        border-radius: 2px;
+        margin: 0 auto; }
+      body #conoscenze table .empty {
+        background-color: #909090;
+        border: 2px solid #d2d2d2; }
   body #esperienze {
     text-align: center; }
     body #esperienze h2 {
@@ -60,6 +77,9 @@ body {
     body #esperienze .card {
       display: block;
       position: relative; }
+      body #esperienze .card .card-image img {
+        display: block;
+        margin: 0 auto; }
       body #esperienze .card .card-description {
         height: 100%;
         width: 100%;
@@ -112,11 +132,14 @@ body {
     body footer h1 {
       padding-top: 20px;
       margin: 0; }
-    body footer ul li {
-      display: inline;
-      margin: 0 30px; }
-      body footer ul li a {
-        color: black; }
+    body footer ul {
+      margin: 20px 0 0 0;
+      padding: 0; }
+      body footer ul li {
+        display: inline;
+        margin: 0 30px; }
+        body footer ul li a {
+          color: black; }
     body footer h4 {
       margin: 0; }
 
@@ -127,10 +150,17 @@ body {
       margin: 0 auto; }
     body .header #logo-container {
       border: none; }
+    body .header h1, body .header h2 {
+      margin-left: 0; }
   body nav ul {
     text-align: center; }
     body nav ul li {
       display: inline; }
+  body .section-title {
+    margin-left: 60px;
+    margin-right: 60px; }
+  body #bio p {
+    margin: 0 60px; }
   body #esperienze .card {
     margin: 10px 20px; }
     body #esperienze .card:hover {

@@ -46,6 +46,9 @@ body {
         body nav ul li a:hover {
           color: black;
           border-bottom: 2px solid black; }
+  body #fish {
+    position: absolute;
+    left: -106px; }
   body .section-title {
     border-bottom: 2px solid black;
     text-align: center;
@@ -80,11 +83,12 @@ body {
     body #esperienze .card, body #progetti .card {
       display: block;
       position: relative; }
-      body #esperienze .card .card-image, body #progetti .card .card-image {
-        min-height: 300px; }
-        body #esperienze .card .card-image img, body #progetti .card .card-image img {
-          display: block;
-          margin: 0 auto; }
+      body #esperienze .card img, body #progetti .card img {
+        display: block;
+        margin: 0 auto; }
+      body #esperienze .card .card-title, body #progetti .card .card-title {
+        height: 300px;
+        line-height: 300px; }
       body #esperienze .card .card-description, body #progetti .card .card-description {
         height: 100%;
         width: 100%;

@@ -93,6 +93,11 @@ body{
 
     }  // end nav
 
+    #fish{
+      position:absolute;
+      left:-106px;
+    }
+
     .section-title{
       border-bottom:2px solid black;
       text-align: center;
@@ -150,26 +155,23 @@ body{
         // border:1px solid black;
 
 
-        .card-image{
-          // position:relative;
-          // border:1px solid black;
-          min-height: 300px;
+        img{
+          display:block;
+          margin:0 auto;
 
-          img{
-            display:block;
-            margin:0 auto;
+        }
 
-          }
+        .card-title{
+          height:300px;
+          line-height:300px;
 
           h1{
 
           }
-
         }
 
         .card-description {
 
-          // background: $pink-color;
           height: 100%;
           width: 100%;
           opacity: 0;
@@ -188,6 +190,9 @@ body{
           }
           a{
             display:block;
+            // position:absolute;
+            // bottom:0px;
+            // left:40%;
           }
         }
 

@@ -13,12 +13,22 @@ body {
     font-weight: lighter; }
   body p {
     font-family: 'Open Sans';
-    font-size: 9px;
-    font-size: 0.5625rem; }
+    font-size: 11px;
+    font-size: 0.6875rem; }
     body p.instructions {
       display: none; }
+    body p.underline {
+      text-decoration: underline; }
+    body p.italic {
+      font-style: italic; }
+  body .header #MatteoPalumboImg {
+    border-radius: 100%;
+    margin-right: 20px;
+    margin-top: 15px;
+    float: right; }
   body .header #logo-container {
-    border-right: 2px solid black; }
+    border-right: 2px solid black;
+    margin-right: -2px; }
     body .header #logo-container #logo {
       padding-top: 40px;
       margin: 0 auto; }
@@ -46,15 +56,22 @@ body {
         body nav ul li a:hover {
           color: black;
           border-bottom: 2px solid black; }
-  body #fish {
-    position: absolute;
-    left: -106px; }
+  body .fish {
+    position: fixed;
+    left: -106px;
+    top: 100px; }
   body .section-title {
     border-bottom: 2px solid black;
     text-align: center;
     padding-left: 56px;
     margin: 0 20px;
     padding-bottom: 10px; }
+  body #chi-sono p {
+    margin: 20px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 12px;
+    font-size: 0.75rem; }
   body #conoscenze {
     text-align: center; }
     body #conoscenze table {
@@ -75,7 +92,8 @@ body {
         background-color: #909090;
         border: 2px solid #d2d2d2; }
   body #esperienze, body #progetti {
-    text-align: center; }
+    text-align: center;
+    margin-top: 40px; }
     body #esperienze h2, body #progetti h2 {
       text-decoration: underline;
       font-style: italic;
@@ -102,14 +120,20 @@ body {
         body #esperienze .card .card-description p, body #progetti .card .card-description p {
           text-align: center; }
         body #esperienze .card .card-description a, body #progetti .card .card-description a {
-          display: block; }
+          display: block;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 14px;
+          font-size: 0.875rem;
+          text-decoration: none;
+          font-weight: bold;
+          color: black; }
       body #esperienze .card:hover .card-description, body #progetti .card:hover .card-description {
         opacity: 1;
         transition: opacity .5s; }
   body #phrase-container {
     background-color: #ededed;
     text-align: center;
-    margin-top: 50px; }
+    margin-top: 100px; }
     body #phrase-container #phrase {
       font-family: 'Open Sans', sans-serif; }
       body #phrase-container #phrase q {
@@ -170,8 +194,9 @@ body {
     margin-left: 60px;
     margin-right: 60px;
     margin-top: 20px; }
-  body #bio p {
-    margin: 0 60px; }
+  body #chi-sono p {
+    margin: 20px 60px;
+    line-height: 36px; }
   body #esperienze .card, body #progetti .card {
     margin: 10px 20px; }
     body #esperienze .card .card-image, body #progetti .card .card-image {

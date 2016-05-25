@@ -45,6 +45,12 @@ body{
       // display:block;
 
     }
+    @media screen and (max-width: 35.5em) {
+      #MatteoPalumboImg{
+        float:none;
+        clear:both;
+      }
+    }
     #logo-container{
       border-right: 2px solid black;
       margin-right:-2px;

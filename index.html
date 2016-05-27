@@ -18,6 +18,7 @@
   <link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic,300italic,300' rel='stylesheet' type='text/css'>
 
+  <link rel="stylesheet" href="css/animate.min.css">
   <link rel="stylesheet" href="css/custom.css">
   <title>Matteo Palumbo - Home</title>
   <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/ >
@@ -93,151 +94,159 @@
       <div class="pure-u-md-6-24"></div>
       <div class="pure-u-md-18-24 pure-u-1">
         <div class="pure-g">
-          <div class="pure-u-lg-8-24 pure-u-1">
+          <div class="pure-u-lg-8-24 pure-u-1" id="frontend">
             <h2>Frontend</h2>
-            <table class="pure-table pure-table-horizontal">
+            <!-- <a href="#frontend-dialog" id="question-frontend">?</a> -->
+            <table class="pure-table pure-table-horizontal" id="frontend-table">
               <tbody>
                 <tr>
                   <td>HTML5</td>
-                  <td>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value empty"></div>
+                  <td id="html">
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
                   </td>
                 </tr>
                 <tr>
                   <td>CSS3</td>
-                  <td>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value empty"></div>
+                  <td id="css">
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
                   </td>
                 </tr>
                 <tr>
                   <td>SASS</td>
-                  <td>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value empty"></div>
+                  <td id="sass">
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
                   </td>
                 </tr>
                 <tr>
                   <td>Javascript</td>
-                  <td>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value empty"></div>
-                    <div class="value empty"></div>
+                  <td id="javascript">
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
                   </td>
                 </tr>
                 <tr>
                   <td>JQuery</td>
-                  <td>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value"></div>
-                    <div class="value empty"></div>
+                  <td id="jquery">
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value "></div></div>
+                    <div class="value-container"><div class="value empty"></div></div>
                   </td>
                 </tr>
               </tbody>
             </table>
+
+            <div id="frontend-dialog">
+              Ciao
+            </div>
+
           </div>
 
-          <div class="pure-u-lg-8-24  pure-u-1">
+          <div class="pure-u-lg-8-24  pure-u-1" id ="programming">
             <h2>Programming Languages</h2>
-            <table class="pure-table pure-table-horizontal">
+            <!-- <a href="#programming-dialog" id="question-programming">?</a> -->
+            <table class="pure-table pure-table-horizontal" id="programming-table">
               <tr>
                 <td>C/C++</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="c">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>Java</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
+                <td id="java">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>PHP</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="php">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>Python</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="python">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
             </table>
           </div>
 
-          <div class="pure-u-lg-8-24  pure-u-1">
+          <div class="pure-u-lg-8-24  pure-u-1" id="tools">
             <h2>Tools</h2>
-            <table class="pure-table pure-table-horizontal">
+            <!-- <a href="#tools-dialog" id="question-tools">?</a> -->
+            <table class="pure-table pure-table-horizontal" id="tools-table">
               <tr>
                 <td>Git</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="git">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>Inkscape</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="inkscape">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>GIMP</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="gimp">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
               <tr>
                 <td>UML</td>
-                <td>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value"></div>
-                  <div class="value empty"></div>
-                  <div class="value empty"></div>
+                <td id="uml">
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value "></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
+                  <div class="value-container"><div class="value empty"></div></div>
                 </td>
               </tr>
             </table>

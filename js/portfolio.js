@@ -1,67 +1,90 @@
 $(document).ready(function(){
+  $('.value').css({'display':'none'});
 
-  var numberOfFishes = 2;
+  var seconds = ['first', 'second','third','fourth','fifth'];
 
-  var animateFish = function (){
-    // setTimeout(500);
+  var knowledge = {
+    // Frontend
+    'html': 4,
+    'css' : 4,
+    'sass': 4,
+    'javascript': 3,
+    'jquery': 4,
+    // Programming
+    'c' : 2,
+    'java' : 4,
+    'php': 3,
+    'python': 3,
+    // Tools
+    'git':3,
+    'inkscape':3,
+    'gimp':2,
+    'uml':3,
 
-    $('.fish').map(function(){
-      var randomHeight = (Math.random() * 800) + 100 + "px";
-      $(this).attr('top', randomHeight).css('top', randomHeight);
-    });
+  };
 
-    $('.fish')
-    .css({
-      left:"-106px",
-      // top: altezza+"px", //100
-    })
-    .animate({
-      left: "50px",
-      // top:(altezza+100)+"px", //200
-      top: ($(this).attr('top') + 100) + "px"
-    },1000)
-    .animateRotate(150, {
-        duration: 1200,
-        easing: 'swing',
-        complete: function() {},
-        step: function(){},
-    })
-    .animate({
-      // top: (altezza+300)+"px", //400
-      top: ($(this).attr('top') + 300) + "px",
-      left:"-156px"
-    },1000);
+  var programming = {
 
+  };
 
-};
+  var animateSquare = function( divIdName ){
+    var elements = $('#' + divIdName).find('.value-container');
+    for(var i=0; i < elements.length; i++){
+      if(i < knowledge[divIdName] ){
+        $(elements[i]).children()
+         .css({'display':'block'})
+         .addClass('animated')
+         .addClass('flipInY')
+         .addClass(seconds[i]);
+      }else{
+        $(elements[i]).children().css({'display':'none'});
+      }
 
-for(var i=0; i < numberOfFishes ; i++){
-  var temp = document.createElement('img');
-  temp.src = "img/fish.png";
-  temp.setAttribute('class','fish');
+    }
+  }
 
-  var altezza = (Math.random() * 800) + 100;
-  temp.setAttribute('top', altezza+"px");
-  // $(temp).css('top', altezza+"px");
-  //Set attribute id or class
-  $('#fishes').append($(temp));
-}
+  // elements = $('#html').find('*');
+  // for(var i=0; i < elements.length; i++){
+  //   if(i < frontend['html'] ){
+  //     $(elements[i]).addClass(seconds[i]).removeClass('empty');
+  //   }
+  // }
+  $('#frontend').hover(
+    function(){
+      animateSquare('html');
+      animateSquare('css');
+      animateSquare('sass');
+      animateSquare('javascript');
+      animateSquare('jquery');
+    },
+    function(){
 
-//chiamare setInterval per ciascun fish
-setInterval(animateFish, (Math.random() * 5000) + 1000);   // 7 - 4
+    }
+  );
+
+  $('#programming').hover(
+    function(){
+      animateSquare('c');
+      animateSquare('java');
+      animateSquare('php');
+      animateSquare('python');
+    },
+    function(){
+
+    }
+  );
+
+  $('#tools').hover(
+    function(){
+      animateSquare('git');
+      animateSquare('inkscape');
+      animateSquare('gimp');
+      animateSquare('uml');
+    },
+    function(){
+
+    }
+  );
+
 
 });
-
-$.fn.animateRotate = function(angle, duration, easing, complete) {
-  var args = $.speed(duration, easing, complete);
-  var step = args.step;
-  return this.each(function(i, e) {
-    args.complete = $.proxy(args.complete, e);
-    args.step = function(now) {
-      $.style(e, 'transform', 'rotate(' + now + 'deg)');
-      if (step) return step.apply(e, arguments);
-    };
-
-    $({deg: 0}).animate({deg: angle}, args);
-  });
-};
